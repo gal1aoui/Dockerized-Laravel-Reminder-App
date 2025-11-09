@@ -49,26 +49,28 @@ Before you begin, ensure you have installed:
 
 ### Step 1: Clone or Download Project
 
-\`\`\`bash
+```bash
 cd your-projects-folder
+```
 # If cloned from Git
+```bash
 git clone <repository-url>
 cd reminder-app
+```
 
 # If downloaded as ZIP, extract and navigate into the folder
-\`\`\`
 
 ### Step 2: Create Environment File
 
 Copy the example environment file:
 
-\`\`\`bash
+```bash
 copy .env.example .env
-\`\`\`
+```
 
 Or manually create `.env` with:
 
-\`\`\`env
+```env
 APP_NAME="Reminder App"
 APP_ENV=local
 APP_DEBUG=true
@@ -89,13 +91,13 @@ DB_PASSWORD=reminder_password
 CACHE_DRIVER=file
 QUEUE_CONNECTION=sync
 SESSION_DRIVER=cookie
-\`\`\`
+```
 
 ### Step 3: Start Docker Containers
 
-\`\`\`bash
+```bash
 docker-compose up -d
-\`\`\`
+```
 
 This starts three containers:
 - `reminder_app` (Laravel + PHP-FPM)
@@ -103,37 +105,37 @@ This starts three containers:
 - `reminder_nginx` (Nginx Web Server)
 
 Check status:
-\`\`\`bash
+```bash
 docker-compose ps
-\`\`\`
+```
 
 ### Step 4: Generate Application Key
 
-\`\`\`bash
+```bash
 docker-compose exec app php artisan key:generate
-\`\`\`
+```
 
 Verify your `.env` file now has `APP_KEY=base64:...`
 
 ### Step 5: Run Database Migrations
 
-\`\`\`bash
+```bash
 docker-compose exec app php artisan migrate
-\`\`\`
+```
 
 You should see:
-\`\`\`
+```
 Migrating: 2024_01_01_000000_create_users_table
 Migrated: 2024_01_01_000000_create_users_table
 Migrating: 2024_01_01_000001_create_reminders_table
 Migrated: 2024_01_01_000001_create_reminders_table
-\`\`\`
+```
 
 ### Step 6: Build Frontend Assets
 
-\`\`\`bash
+```bash
 docker-compose exec app npm run build
-\`\`\`
+```
 
 Wait for completion. You should see `✓ built in XXXms`
 
@@ -141,9 +143,9 @@ Wait for completion. You should see `✓ built in XXXms`
 
 Open your browser and visit:
 
-\`\`\`
+```
 http://localhost
-\`\`\`
+```
 
 You'll be redirected to the login page.
 
@@ -151,7 +153,7 @@ You'll be redirected to the login page.
 
 Once installed, here's the typical workflow:
 
-\`\`\`bash
+```bash
 # Start app
 docker-compose up -d
 
@@ -163,6 +165,7 @@ docker-compose logs -f app
 
 # Stop app
 ```
+```bash
 docker-compose down
 ```
 
@@ -278,15 +281,15 @@ Changes to PHP/Laravel files auto-reload. No restart needed.
 
 Watch for React/TypeScript changes:
 
-\`\`\`bash
+```bash
 docker-compose exec app npm run dev
-\`\`\`
+```
 
 Assets rebuild automatically. Refresh your browser to see changes.
 
 ### Database Commands
 
-\`\`\`bash
+```bash
 # Run migrations
 docker-compose exec app php artisan migrate
 
@@ -296,11 +299,11 @@ docker-compose exec app php artisan migrate:fresh
 # Access database shell
 docker-compose exec db mysql -u reminder_user -p reminder_db
 # Password: reminder_password
-\`\`\`
+```
 
 ### Laravel Commands
 
-\`\`\`bash
+```bash
 # Clear all caches
 docker-compose exec app php artisan cache:clear
 
@@ -312,7 +315,7 @@ docker-compose exec app php artisan make:model ModelName
 
 # Create new controller
 docker-compose exec app php artisan make:controller ControllerName
-\`\`\`
+```
 
 ## Troubleshooting
 
@@ -320,59 +323,59 @@ docker-compose exec app php artisan make:controller ControllerName
 
 Edit `docker-compose.yml`:
 
-\`\`\`yaml
+```yaml
 nginx:
   ports:
     - "8080:80"  # Change to 8080:80
-\`\`\`
+```
 
 Then access: `http://localhost:8080`
 
 ### Encryption Key Error
 
-\`\`\`
+```
 Unsupported cipher or incorrect key length
-\`\`\`
+```
 
 Generate the key:
 
-\`\`\`bash
+```bash
 docker-compose exec app php artisan key:generate
-\`\`\`
+```
 
 ### Database Connection Error
 
 Ensure `reminder_db` container is running:
 
-\`\`\`bash
+```bash
 docker-compose ps
 docker-compose logs db
-\`\`\`
+```
 
 ### Assets Not Loading (CSS/JS Broken)
 
 Rebuild assets:
 
-\`\`\`bash
+```bash
 docker-compose exec app npm run build
-\`\`\`
+```
 
 ### Can't Login After Registering
 
 Verify migrations ran:
 
-\`\`\`bash
+```bash
 docker-compose exec app php artisan migrate
-\`\`\`
+```
 
 ### Containers Exit Immediately
 
 Check logs:
 
-\`\`\`bash
+```bash
 docker-compose logs app
 docker-compose logs db
-\`\`\`
+```
 
 ### Permission Denied Error
 
@@ -453,8 +456,7 @@ For issues or questions:
 
 ## Contact
 
-For technical interview questions or inquiries, please refer to the project structure and code comments.
-
+📩 achref.gallaoui.dev@gmail.com
 ---
 
 **Happy Reminding!** 🚀
