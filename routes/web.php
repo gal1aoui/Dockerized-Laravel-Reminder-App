@@ -1,0 +1,28 @@
+<?php
+
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ReminderController;
+use Illuminate\Support\Facades\Route;
+
+// Root redirect
+Route::get('/', function () {
+    return auth()->check() 
+        ? redirect('/reminders') 
+        : redirect('/login');
+});
+
+// Guest routes (only accessible when not authenticated)
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register']);
+});
+
+// Authenticated routes
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    
+    // Reminder resource routes
+    Route::resource('reminders', ReminderController::class);
+});

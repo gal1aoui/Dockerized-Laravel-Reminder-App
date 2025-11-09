@@ -1,0 +1,60 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: reminder_app
+    restart: unless-stopped
+    working_dir: /var/www
+    environment:
+      APP_NAME: "Reminder App"
+      APP_ENV: local
+      APP_KEY: base64:${APP_KEY}
+      APP_DEBUG: "true"
+      APP_URL: http://localhost
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: reminder_db
+      DB_USERNAME: reminder_user
+      DB_PASSWORD: reminder_password
+    volumes:
+      - ./:/var/www
+    networks:
+      - reminder_network
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: reminder_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: reminder_db
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_USER: reminder_user
+      MYSQL_PASSWORD: reminder_password
+    volumes:
+      - ./storage/db:/var/lib/mysql
+    networks:
+      - reminder_network
+    ports:
+      - "3306:3306"
+
+  nginx:
+    image: nginx:alpine
+    container_name: reminder_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - reminder_network
+    depends_on:
+      - app
+
+networks:
+  reminder_network:
+    driver: bridge
