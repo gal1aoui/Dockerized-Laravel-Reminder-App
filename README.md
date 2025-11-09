@@ -162,12 +162,13 @@ docker-compose exec app npm run build
 docker-compose logs -f app
 
 # Stop app
+```
 docker-compose down
-\`\`\`
+```
 
 ## Project Structure
 
-\`\`\`
+```
 reminder-app/
 ├── app/                           # Laravel application code
 │   ├── Models/
@@ -215,7 +216,7 @@ reminder-app/
 ├── tsconfig.json                # TypeScript config
 ├── tailwind.config.js           # Tailwind config
 └── .env                         # Environment variables
-\`\`\`
+```
 
 ## Using the App
 
