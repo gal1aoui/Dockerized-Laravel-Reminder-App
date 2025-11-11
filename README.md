@@ -2,6 +2,14 @@
 
 A full-stack web application for managing reminders with browser notifications. Built with Laravel 12, React, TypeScript, Inertia.js, Docker, and MySQL.
 
+## Reminder
+
+I've prepared a seeder to dive directly into app features with a demo user.
+
+**Creedentials:**
+**User:** test@example.com
+**Password:** password
+
 ## Overview
 
 This application demonstrates a complete modern web development stack with:
@@ -109,7 +117,13 @@ Check status:
 docker-compose ps
 ```
 
-### Step 4: Generate Application Key
+### Step 4: Install Laravel dependencies
+
+```bash
+docker-compose exec app composer install 
+```
+
+### Step 5: Generate Application Key
 
 ```bash
 docker-compose exec app php artisan key:generate
@@ -117,7 +131,7 @@ docker-compose exec app php artisan key:generate
 
 Verify your `.env` file now has `APP_KEY=base64:...`
 
-### Step 5: Run Database Migrations
+### Step 6: Run Database Migrations
 
 ```bash
 docker-compose exec app php artisan migrate
@@ -131,7 +145,27 @@ Migrating: 2024_01_01_000001_create_reminders_table
 Migrated: 2024_01_01_000001_create_reminders_table
 ```
 
-### Step 6: Build Frontend Assets
+Optional: I have prepared a Reminder seeder demo to take a quick trip
+
+```bash
+docker-compose exec app php artisan db:seed
+```
+
+You should see:
+```
+Database\Seeders\ReminderSeeder .... RUNNING
+Database\Seeders\ReminderSeeder .... DONE
+```
+
+### Step 7: Install & Build Frontend Assets
+
+Install Frontend dependencies
+
+```bash
+docker-compose exec app npm i
+```
+
+Now, you are ready to build Frontend Assets
 
 ```bash
 docker-compose exec app npm run build
@@ -139,7 +173,7 @@ docker-compose exec app npm run build
 
 Wait for completion. You should see `✓ built in XXXms`
 
-### Step 7: Access the App
+### Step 8: Access the App
 
 Open your browser and visit:
 
